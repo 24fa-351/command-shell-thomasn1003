@@ -7,12 +7,16 @@
 #include <fcntl.h>
 #include <ctype.h>
 
+
 #define BUFFER_SIZE 1024
+
 
 void execute_command(char **args, int background, int input_fd, int output_fd);
 void set_env_var(char *name, char *value);
 void unset_env_var(char *name);
 char *replace_vars(char *line);
+
+
 
 int main() {
     char cwd[BUFFER_SIZE];
@@ -131,6 +135,8 @@ int main() {
     return 0;
 }
 
+
+
 void execute_command(char **args, int background, int input_fd, int output_fd) {
     pid_t pid = fork();
 
@@ -156,17 +162,23 @@ void execute_command(char **args, int background, int input_fd, int output_fd) {
     }
 }
 
+
+
 void set_env_var(char *name, char *value) {
     if (setenv(name, value, 1) != 0) {
         perror("setenv");
     }
 }
 
+
+
 void unset_env_var(char *name) {
     if (unsetenv(name) != 0) {
         perror("unsetenv");
     }
 }
+
+
 
 char *replace_vars(char *line) {
     char *result = malloc(BUFFER_SIZE);
